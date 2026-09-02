@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='mvp.css')}}">
+    <link rel="shortcut icon" href="{{url_for('static',filename='thepdffun.ico')}}" type="image/x-icon">
+    <title>Thepdf.fun - PDF vers Word</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modern-nav {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(34, 197, 94, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            color: #22c55e;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1a1a1a 0%, #22c55e 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo-text span {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #22c55e;
+        }
+
+        .main-wrapper {
+            position: fixed;
+            top: 73px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .main-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            width: 100%;
+        }
+
+        .converter-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            max-width: 450px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .converter-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .converter-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.75rem;
+            color: #22c55e;
+        }
+
+        .converter-icon svg {
+            width: 30px;
+            height: 30px;
+        }
+
+        .converter-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.25rem;
+        }
+
+        .converter-title span {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .converter-subtitle {
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+
+        .formats {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .format-badge {
+            background: rgba(34, 197, 94, 0.1);
+            color: #16a34a;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+
+        .file-dropzone {
+            border: 2px dashed #e5e7eb;
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .file-dropzone:hover {
+            border-color: #22c55e;
+            background: #f0fdf4;
+        }
+
+        .file-dropzone.drag-over {
+            border-color: #22c55e;
+            background: #f0fdf4;
+            transform: scale(0.98);
+        }
+
+        .file-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.75rem;
+            color: #22c55e;
+        }
+
+        .file-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .file-text {
+            color: #374151;
+            font-size: 0.85rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .file-hint {
+            color: #9ca3af;
+            font-size: 0.7rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-info {
+            display: none;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: #f0fdf4;
+            border-radius: 12px;
+            border: 1px solid #22c55e;
+            margin-top: 0.75rem;
+        }
+
+        .file-info.active {
+            display: flex;
+        }
+
+        .file-info-icon {
+            width: 35px;
+            height: 35px;
+            background: rgba(34, 197, 94, 0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #22c55e;
+        }
+
+        .file-info-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .file-info-details {
+            flex: 1;
+        }
+
+        .file-info-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1a1a1a;
+        }
+
+        .file-info-size {
+            font-size: 0.65rem;
+            color: #6b7280;
+        }
+
+        .convert-btn {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .convert-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(34, 197, 94, 0.3);
+        }
+
+        .convert-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .convert-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .progress-container {
+            display: none;
+            margin-top: 1rem;
+        }
+
+        .progress-container.active {
+            display: block;
+        }
+
+        .progress-bar {
+            background: #e5e7eb;
+            border-radius: 10px;
+            height: 6px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #22c55e, #16a34a);
+            width: 0%;
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+
+        .error-message {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 12px;
+            padding: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #dc2626;
+            font-size: 0.8rem;
+            margin-top: 0.75rem;
+        }
+
+        .error-message svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .credit {
+            position: fixed;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #9ca3af;
+            background: transparent;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .credit strong {
+            color: #22c55e;
+            font-weight: 600;
+        }
+
+        .main-wrapper::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .main-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .main-wrapper::-webkit-scrollbar-thumb {
+            background: #22c55e;
+            border-radius: 3px;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1rem;
+            }
+            .converter-card {
+                max-width: 380px;
+                padding: 1.25rem;
+            }
+            .converter-title {
+                font-size: 1.3rem;
+            }
+            .nav-container {
+                padding: 0.75rem 1rem;
+            }
+            .main-wrapper {
+                top: 65px;
+            }
+            .credit {
+                bottom: 5px;
+                font-size: 0.65rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="modern-nav">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <div class="logo-icon">
+                    <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+                        <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 16L15 19L21 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <span class="logo-text">The<span>pdf.fun</span></span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="{{url_for('home')}}" class="nav-link">Acceuil</a></li>
+                <li><a href="{{url_for('home')}}" class="nav-link">À propos</a></li>
+                <li><a href="{{url_for('page_don')}}" class="nav-link">Support</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-wrapper">
+        <div class="main-container">
+            <div class="converter-card">
+                <div class="converter-header">
+                    <div class="converter-icon">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+                            <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M8 7H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M8 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            <path d="M8 15H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h1 class="converter-title">PDF <span>vers Word</span></h1>
+                    <p class="converter-subtitle">Convertissez vos PDF en documents Word DOCX</p>
+                    <div class="converter-subtitle">le fichier Word sera téléchargé automatiquement</div>
+                    <div class="formats">
+                        <span class="format-badge">PDF</span>
+                        <span class="format-badge">DOCX</span>
+                        <span class="format-badge">Word</span>
+                    </div>
+                </div>
+
+                <form action="" method="post" enctype="multipart/form-data" id="converterForm">
+                    <div class="file-dropzone" id="dropzone">
+                        <div class="file-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 16V4M12 4L8 8M12 4L16 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M4 16V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V16" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                        <p class="file-text">Cliquez ou déposez votre PDF ici</p>
+                        <p class="file-hint">PDF uniquement - Max 10 Mo</p>
+                        <input type="file" name="file" id="fileInput" class="file-input" accept=".pdf" required>
+                    </div>
+
+                    <div class="file-info" id="fileInfo">
+                        <div class="file-info-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                                <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M8 7H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                <path d="M8 11H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="file-info-details">
+                            <div class="file-info-name" id="fileName">document.pdf</div>
+                            <div class="file-info-size" id="fileSize">0 KB</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="convert-btn" id="submitBtn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                            <path d="M3 12H21M21 12L17 8M21 12L17 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M12 4V20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        Convertir en Word
+                    </button>
+
+                    <div class="progress-container" id="progressContainer">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="progress-text" id="progressText">Conversion en cours...</div>
+                    </div>
+
+                    {% if error %}
+                    <div class="error-message">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M12 8V12M12 16H12.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        <span>{{ error }}</span>
+                    </div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="credit">
+        Created by <strong>GNABA FABRICE</strong>
+    </div>
+
+    <script>
+        const dropzone = document.getElementById('dropzone');
+        const fileInput = document.getElementById('fileInput');
+        const fileInfo = document.getElementById('fileInfo');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const form = document.getElementById('converterForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+
+        dropzone.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                fileName.textContent = file.name;
+                fileSize.textContent = formatFileSize(file.size);
+                fileInfo.classList.add('active');
+                dropzone.style.display = 'none';
+            }
+        });
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        dropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropzone.classList.add('drag-over');
+        });
+
+        dropzone.addEventListener('dragleave', () => {
+            dropzone.classList.remove('drag-over');
+        });
+
+        dropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropzone.classList.remove('drag-over');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                fileInput.files = files;
+                const file = files[0];
+                fileName.textContent = file.name;
+                fileSize.textContent = formatFileSize(file.size);
+                fileInfo.classList.add('active');
+                dropzone.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

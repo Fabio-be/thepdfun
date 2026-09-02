@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thepdf.fun — Soutenir le projet | Dons gratuits & open source</title>
+    <meta name="description" content="Soutenez Thepdf.fun, service 100% gratuit, open source et performant. Faites un don par Wave, Djamo, Moov Money ou PayPal. Merci pour votre générosité !">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="shortcut icon" href="{{url_for('static',filename='thepdffun.ico')}}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+            color: #1a1a1a;
+        }
+
+        /* Navigation principale (identique au thème) */
+        .modern-nav {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(34, 197, 94, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            transform: scale(1.02);
+        }
+
+        .logo-icon {
+            color: #22c55e;
+            transition: all 0.3s ease;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1a1a1a 0%, #22c55e 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #22c55e, #16a34a);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-link:hover {
+            color: #22c55e;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .mobile-menu-btn span {
+            width: 100%;
+            height: 2px;
+            background: #374151;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem;
+            }
+            .mobile-menu-btn {
+                display: flex;
+            }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                gap: 2rem;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+                z-index: 9;
+            }
+            .nav-links.active {
+                right: 0;
+            }
+            .logo-text {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Page Don section principale */
+        .donation-hero {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding: 2rem 2rem 1rem;
+            text-align: center;
+        }
+
+        .donation-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(34, 197, 94, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .badge-icon {
+            font-size: 1.2rem;
+        }
+
+        .badge-text {
+            color: #16a34a;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .donation-title {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1a1a1a 0%, #22c55e 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .donation-subtitle {
+            font-size: 1.2rem;
+            color: #4b5563;
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+            line-height: 1.5;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem auto;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            padding: 1.2rem 2rem;
+            max-width: 500px;
+            border: 1px solid rgba(34, 197, 94, 0.15);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .stat-divider {
+            width: 1px;
+            background: linear-gradient(180deg, transparent, #22c55e, transparent);
+        }
+
+        /* Grille des méthodes de don */
+        .donation-methods {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .donor-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(34, 197, 94, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .donor-card:hover {
+            transform: translateY(-6px);
+            border-color: #22c55e;
+            box-shadow: 0 20px 30px -12px rgba(34, 197, 94, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #f0fdf4;
+            padding-bottom: 1rem;
+        }
+
+        .logo-payment {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+
+        .card-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: #f9fafb;
+            padding: 0.8rem 1rem;
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .info-icon {
+            color: #22c55e;
+            width: 24px;
+            text-align: center;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #374151;
+            min-width: 70px;
+            font-size: 0.85rem;
+        }
+
+        .info-value {
+            font-family: monospace;
+            font-weight: 500;
+            background: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            color: #1f2937;
+            word-break: break-all;
+            flex: 1;
+        }
+
+        .copy-btn {
+            background: #eef2ff;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #22c55e;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .copy-btn:hover {
+            background: #22c55e;
+            color: white;
+        }
+
+        .copy-success {
+            background: #22c55e !important;
+            color: white !important;
+        }
+
+        .notice-card {
+            background: linear-gradient(135deg, #f0fdf4, #ffffff);
+            border-radius: 24px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            text-align: center;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .notice-card p {
+            color: #2d6a4f;
+            font-weight: 500;
+        }
+
+        /* CTA supplémentaire */
+        .cta-community {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 32px;
+        }
+
+        /* Footer identique au thème original */
+        .modern-footer {
+            background: #1a1a1a;
+            color: #9ca3af;
+            padding: 3rem 2rem 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand {
+            padding-right: 1rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo .logo-icon {
+            color: #22c55e;
+        }
+
+        .footer-logo .logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+            background: none;
+            -webkit-background-clip: unset;
+            background-clip: unset;
+        }
+
+        .footer-logo .logo-text span {
+            color: #22c55e;
+        }
+
+        .footer-description {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #9ca3af;
+        }
+
+        .footer-section h3 {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #22c55e;
+        }
+
+        .footer-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-email:hover {
+            color: #22c55e;
+        }
+
+        .footer-social h4 {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: #22c55e;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-github {
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 1.5rem;
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .github-link:hover {
+            background: #22c55e;
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.75rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-legal a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: #22c55e;
+        }
+
+        @media (max-width: 968px) {
+            .footer-main {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .footer-brand {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .donation-title {
+                font-size: 2rem;
+            }
+            .methods-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-main {
+                grid-template-columns: 1fr;
+            }
+            .footer-brand {
+                grid-column: span 1;
+            }
+            .stats-container {
+                gap: 1rem;
+                padding: 1rem;
+            }
+        }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #22c55e;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+            margin-top: 1rem;
+        }
+        .btn-home:hover {
+            background: #16a34a;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+<nav class="modern-nav">
+    <div class="nav-container">
+        <a href="#" class="logo" style="text-decoration: none;">
+            <div class="logo-icon">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 16L15 19L21 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <span class="logo-text">The<span>pdf.fun</span></span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#" class="nav-link">Blog</a></li>
+            <li><a href="{{url_for('home')}}" class="nav-link">home</a></li>
+            <li><a href="{{url_for('page_don')}}" class="nav-link" style="color:#22c55e;">Soutenir</a></li>
+        </ul>
+        <button class="mobile-menu-btn" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+<main>
+    <div class="donation-hero">
+        <div class="donation-badge">
+            <span class="badge-icon">💚</span>
+            <span class="badge-text">Open Source & Communauté</span>
+        </div>
+        <h1 class="donation-title">Soutenez Thepdf.fun</h1>
+        <p class="donation-subtitle">
+            Votre générosité permet de maintenir le service <strong>100% gratuit, sans pub, performant et ouvert à tous</strong>.
+            Chaque don compte pour l'hébergement, les évolutions et la mission open source.
+        </p>
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Gratuit</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Sans limite</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Inscription</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="donation-methods">
+        <div class="section-header">
+            <h2>Choisissez votre moyen de paiement</h2>
+            <p>Moyens locaux (Côte d'Ivoire) : Wave, Djamo, Moov Money — et international via PayPal</p>
+        </div>
+
+        <div class="methods-grid">
+            <!-- Wave -->
+            <div class="donor-card">
+                <div class="card-header">
+                    <img class="logo-payment" src="https://upload.wikimedia.org/wikipedia/commons/7/79/Wave_%28money_transfer%29_logo.svg" alt="Wave logo" onerror="this.src='https://placehold.co/48x48?text=Wave'">
+                    <h3>Wave</h3>
+                </div>
+                <div class="info-row">
+                    <span class="info-icon">📞</span>
+                    <span class="info-label">Numéro :</span>
+                    <span class="info-value" id="waveVal">+225 0161653464</span>
+                    <button class="copy-btn" data-copy="waveVal">Copier</button>
+                </div>
+                <div class="info-row">
+                    <span class="info-icon">👤</span>
+                    <span class="info-label">Nom :</span>
+                    <span class="info-value">GNABA FABRICE</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-icon">⚡</span>
+                    <span>Transfert instantané Wave — sans frais cachés.</span>
+                </div>
+            </div>
+
+            <!-- Djamo -->
+            <div class="donor-card">
+                <div class="card-header">
+                    <img class="logo-payment" src="https://djamo.io/_next/static/media/djamo-logo.5c6e6b5c.svg" alt="Djamo logo" onerror="this.src='https://placehold.co/48x48?text=Djamo'">
+                    <h3>Djamo</h3>
+                </div>
+                <div class="info-row">
+                    <span class="info-icon">📱</span>
+                    <span class="info-label">Numéro :</span>
+                    <span class="info-value" id="djamoVal">+225 0161653464</span>
+                    <button class="copy-btn" data-copy="djamoVal">Copier</button>
+                </div>
+                <div class="info-row">
+                    <span class="info-icon">👤</span>
+                    <span class="info-label">Nom :</span>
+                    <span class="info-value">GNABA FABRICE</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-icon">💳</span>
+                    <span>Paiement mobile sécurisé via Djamo.</span>
+                </div>
+            </div>
+
+            <!-- Moov Money -->
+            <div class="donor-card">
+                <div class="card-header">
+                    <img class="logo-payment" src="https://upload.wikimedia.org/wikipedia/fr/0/08/Moov_Africa_logo_2017.png" alt="Moov Money" onerror="this.src='https://placehold.co/48x48?text=Moov'">
+                    <h3>Moov Money</h3>
+                </div>
+                <div class="info-row">
+                    <span class="info-icon">📞</span>
+                    <span class="info-label">Numéro :</span>
+                    <span class="info-value" id="moovVal">+225 0161653464</span>
+                    <button class="copy-btn" data-copy="moovVal">Copier</button>
+                </div>
+                <div class="info-row">
+                    <span class="info-icon">👤</span>
+                    <span class="info-label">Titulaire :</span>
+                    <span class="info-value">GNABA FABRICE</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-icon">🛡️</span>
+                    <span>Envoyez via Moov Money (Côte d'Ivoire).</span>
+                </div>
+            </div>
+
+            <!-- PayPal -->
+            <div class="donor-card">
+                <div class="card-header">
+                    <img class="logo-payment" src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" onerror="this.src='https://placehold.co/48x48?text=PayPal'">
+                    <h3>PayPal</h3>
+                </div>
+                <div class="info-row">
+                    <span class="info-icon">✉️</span>
+                    <span class="info-label">Email :</span>
+                    <span class="info-value" id="paypalVal">Fabiokssa46@gmail.com</span>
+                    <button class="copy-btn" data-copy="paypalVal">Copier</button>
+                </div>
+                <div class="info-row">
+                    <span class="info-icon">🌍</span>
+                    <span>Paiement sécurisé international (carte/PayPal).</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-icon">💚</span>
+                    <span>Toutes les devises acceptées.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="notice-card">
+            <p>✨ 100% des dons financent l'infrastructure, le développement open source et le maintien de la gratuité. Aucune publicité intrusive, toujours performant. Merci de faire partie de l'aventure Thepdf.fun ! ✨</p>
+        </div>
+        
+        <div class="cta-community">
+            <p style="margin-bottom: 0.75rem;">💪 Vous voulez contribuer autrement ? Proposez du code, partagez le projet ou devenez ambassadeur.</p>
+            <a href="https://github.com/Fabio-be/thepdfun" class="btn-home">Voir le code source <span style="margin-left:4px;">→</span></a>
+        </div>
+    </div>
+</main>
+
+<!-- Footer identique au thème original -->
+<footer class="modern-footer">
+    <div class="footer-container">
+        <div class="footer-main">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="logo-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/>
+                            <path d="M12 16L15 19L21 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <span class="logo-text">The<span>pdf.fun</span></span>
+                </div>
+                <p class="footer-description">Service de conversion PDF 100% gratuit et open source.<br>Simple, rapide, sans inscription.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Outils</h3>
+                <ul>
+                    <li><a href="{{url_for('img_pdf')}}">JPG/PNG vers PDF</a></li>
+                    <li><a href="{{url_for('pdf_to_word')}}">PDF vers Word</a></li>
+                    <li><a href="{{url_for('word_topdf')}}">Word vers PDF</a></li>
+                    <li><a href="{{url_for('page_ppt')}}">PDF vers PowerPoint</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Ressources</h3>
+                <ul>
+                    <li><a href="{{url_for('page_don')}}">Support</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <a href="mailto:fabiokssa46@gmail.com" class="footer-email">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                    <span>fabiokssa46@gmail.com</span>
+                </a>
+                <div class="footer-social">
+                    <h4>Suivez-moi sur</h4>
+                    <div class="social-links">
+                        <a href="https://github.com/Fabio-be" class="social-link" aria-label="GitHub">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2C6.48 2 2 6.48 2 12C2 16.41 4.87 20.12 8.84 21.49C9.34 21.58 9.5 21.27 9.5 21C9.5 20.77 9.49 20.03 9.49 19.27C6.73 19.86 6.14 17.97 6.14 17.97C5.68 16.81 5.03 16.51 5.03 16.51C4.12 15.9 5.1 15.91 5.1 15.91C6.1 15.98 6.63 16.95 6.63 16.95C7.5 18.45 8.97 18.02 9.54 17.75C9.63 17.11 9.89 16.67 10.17 16.42C7.95 16.17 5.62 15.31 5.62 11.5C5.62 10.39 6 9.5 6.65 8.79C6.55 8.54 6.2 7.5 6.75 6.15C6.75 6.15 7.59 5.88 9.5 7.17C10.29 6.95 11.15 6.84 12 6.84C12.85 6.84 13.71 6.95 14.5 7.17C16.41 5.88 17.25 6.15 17.25 6.15C17.8 7.5 17.45 8.54 17.35 8.79C18 9.5 18.38 10.39 18.38 11.5C18.38 15.32 16.04 16.16 13.81 16.41C14.17 16.72 14.5 17.34 14.5 18.26C14.5 19.54 14.49 20.58 14.49 21C14.49 21.27 14.65 21.59 15.16 21.49C19.13 20.12 22 16.41 22 12C22 6.48 17.52 2 12 2Z" fill="currentColor"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/fabrice-gnaba-9666b7339/?locale=fr" class="social-link" aria-label="LinkedIn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M6 9H2V21H6V9Z" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                        </a>
+                        <a href="https://x.com/FGnaba71536" class="social-link" aria-label="X"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M17 2H20L13.5 9.5L21 22H15L10 15.5L4.5 22H1L8 13.5L1 2H7L11.5 8L17 2Z" stroke="currentColor" stroke-width="1.5"/></svg></a>
+                        <a href="https://web.facebook.com/?_rdc=1&_rdr#" class="social-link" aria-label="Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 2H15C13.6739 2 12.4021 2.52678 11.4645 3.46447C10.5268 4.40215 10 5.67392 10 7V10H7V14H10V22H14V14H17L18 10H14V7C14 6.73478 14.1054 6.48043 14.2929 6.29289C14.4804 6.10536 14.7348 6 15 6H18V2Z" stroke="currentColor" stroke-width="1.5"/></svg></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-github">
+            <a href="#" class="github-link"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12C2 16.41 4.87 20.12 8.84 21.49C9.34 21.58 9.5 21.27 9.5 21C9.5 20.77 9.49 20.03 9.49 19.27C6.73 19.86 6.14 17.97 6.14 17.97C5.68 16.81 5.03 16.51 5.03 16.51C4.12 15.9 5.1 15.91 5.1 15.91C6.1 15.98 6.63 16.95 6.63 16.95C7.5 18.45 8.97 18.02 9.54 17.75C9.63 17.11 9.89 16.67 10.17 16.42C7.95 16.17 5.62 15.31 5.62 11.5C5.62 10.39 6 9.5 6.65 8.79C6.55 8.54 6.2 7.5 6.75 6.15C6.75 6.15 7.59 5.88 9.5 7.17C10.29 6.95 11.15 6.84 12 6.84C12.85 6.84 13.71 6.95 14.5 7.17C16.41 5.88 17.25 6.15 17.25 6.15C17.8 7.5 17.45 8.54 17.35 8.79C18 9.5 18.38 10.39 18.38 11.5C18.38 15.32 16.04 16.16 13.81 16.41C14.17 16.72 14.5 17.34 14.5 18.26C14.5 19.54 14.49 20.58 14.49 21C14.49 21.27 14.65 21.59 15.16 21.49C19.13 20.12 22 16.41 22 12C22 6.48 17.52 2 12 2Z" fill="currentColor"/></svg><span>Code source</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2"/></svg></a>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Thepdf.fun - Tous droits réservés - Created By GNABA</p>
+            <div class="footer-legal"><a href="#">Mentions légales</a><a href="#">Politique de confidentialité</a><a href="#">CGU</a></div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Menu mobile
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    if(menuBtn) {
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuBtn.classList.toggle('active');
+        });
+    }
+
+    // Copie coordonnées
+    const copyButtons = document.querySelectorAll('.copy-btn');
+    copyButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('data-copy');
+            if(targetId) {
+                const valueSpan = document.getElementById(targetId);
+                if(valueSpan) {
+                    const textToCopy = valueSpan.innerText;
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        const originalHtml = this.innerHTML;
+                        this.innerHTML = '✓ Copié';
+                        this.classList.add('copy-success');
+                        setTimeout(() => {
+                            this.innerHTML = originalHtml;
+                            this.classList.remove('copy-success');
+                        }, 1500);
+                    }).catch(() => {
+                        alert("Impossible de copier, mais voici le texte : " + textToCopy);
+                    });
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

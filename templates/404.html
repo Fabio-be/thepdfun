@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{url_for('static',filename='thepdffun.ico')}}" type="image/x-icon">
+    <title>Erreur 404 - Page introuvable | thepdf.fun</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation principale */
+        .modern-nav {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(34, 197, 94, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            color: #22c55e;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover .logo-icon {
+            transform: rotate(5deg);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1a1a1a 0%, #22c55e 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text span {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #22c55e, #16a34a);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-link:hover {
+            color: #22c55e;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 10;
+        }
+
+        .mobile-menu-btn span {
+            width: 100%;
+            height: 2px;
+            background: #374151;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 1rem;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                gap: 2rem;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+                z-index: 9;
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .logo-text {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Section erreur 404 */
+        .error-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 2rem;
+        }
+
+        .error-container {
+            max-width: 700px;
+            text-align: center;
+        }
+
+        .error-icon {
+            margin-bottom: 2rem;
+            animation: float 3s infinite alternate ease-in-out;
+        }
+
+        .error-icon svg {
+            width: 100px;
+            height: 100px;
+            filter: drop-shadow(0 8px 20px rgba(34, 197, 94, 0.2));
+        }
+
+        .error-code {
+            font-size: 7rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -4px;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .error-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+        }
+
+        .error-message {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: #4b5563;
+            max-width: 500px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .fun-tip {
+            background: rgba(34, 197, 94, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 0.75rem 1.25rem;
+            border-radius: 100px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .fun-tip svg {
+            width: 20px;
+            height: 20px;
+            color: #22c55e;
+        }
+
+        .fun-tip span {
+            color: #16a34a;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-primary, .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #22c55e;
+            border: 2px solid #22c55e;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(34, 197, 94, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .suggestions {
+            border-top: 1px solid rgba(34, 197, 94, 0.2);
+            padding-top: 2rem;
+        }
+
+        .suggestions p {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+
+        .suggestions-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .suggestions-links a {
+            color: #22c55e;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .suggestions-links a:hover {
+            color: #16a34a;
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .modern-footer {
+            background: #1a1a1a;
+            color: #9ca3af;
+            padding: 3rem 2rem 1.5rem;
+            margin-top: 0;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand {
+            padding-right: 1rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo .logo-icon {
+            color: #22c55e;
+        }
+
+        .footer-logo .logo-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .footer-logo .logo-text span {
+            color: #22c55e;
+        }
+
+        .footer-description {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #9ca3af;
+        }
+
+        .footer-section h3 {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #22c55e;
+        }
+
+        .footer-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-email:hover {
+            color: #22c55e;
+        }
+
+        .footer-social h4 {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: #22c55e;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-github {
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 1.5rem;
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .github-link:hover {
+            background: #22c55e;
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.75rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-legal a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: #22c55e;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .error-container > * {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .error-icon { animation-delay: 0s; }
+        .error-code { animation-delay: 0.1s; }
+        .error-title { animation-delay: 0.2s; }
+        .error-message { animation-delay: 0.3s; }
+        .fun-tip { animation-delay: 0.4s; }
+        .error-actions { animation-delay: 0.5s; }
+        .suggestions { animation-delay: 0.6s; }
+
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 4.5rem;
+            }
+            .error-title {
+                font-size: 1.5rem;
+            }
+            .error-message {
+                font-size: 1rem;
+            }
+            .footer-main {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+            .footer-brand {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .footer-main {
+                grid-template-columns: 1fr;
+            }
+            .footer-brand {
+                grid-column: span 1;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            .error-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+            .suggestions-links {
+                flex-direction: column;
+                gap: 0.75rem;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="modern-nav">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <div class="logo-icon">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 16L15 19L21 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <span class="logo-text">The<span>pdf.fun</span></span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link">Docs</a></li>
+                <li><a href="#" class="nav-link">Blog</a></li>
+                <li><a href="#Features" class="nav-link">Convertir</a></li>
+                <li><a href="{{url_for('page_don')}}" class="nav-link">Soutenir</a></li>
+            </ul>
+            
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="error-section">
+        <div class="error-container">
+            <div class="error-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="#ef4444" stroke-width="1.5"/>
+                    <path d="M12 8V12M12 16H12.01" stroke="#ef4444" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M4 4L20 20" stroke="#ef4444" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="error-code">404</div>
+            <h1 class="error-title">Erreur 404 - Page introuvable</h1>
+            <p class="error-message">
+                La page que vous recherchez n'existe pas ou a été déplacée.
+                Vérifiez l'URL ou retournez à l'accueil.
+            </p>
+            <div class="fun-tip">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L15 8.5L22 9.5L17 14L18.5 21L12 17.5L5.5 21L7 14L2 9.5L9 8.5L12 2Z"/>
+                </svg>
+                <span>Astuce : Vérifiez l'orthographe du lien ou utilisez notre menu</span>
+            </div>
+            <div class="error-actions">
+                <a href="/" class="btn-primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9.5L12 3L21 9.5V20H3V9.5Z"/>
+                    </svg>
+                    Retour à l'accueil
+                </a>
+                <a href="#Features" class="btn-secondary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4H20V20H4V4Z"/>
+                    </svg>
+                    Nos outils PDF
+                </a>
+            </div>
+            <div class="suggestions">
+                <p>Vous cherchiez peut-être :</p>
+                <div class="suggestions-links">
+                    <a href="{{url_for('img_pdf')}}">📷 JPG/PNG vers PDF</a>
+                    <a href="{{url_for('pdf_to_word')}}">📄 PDF vers Word</a>
+                    <a href="{{url_for('word_topdf')}}">📝 Word vers PDF</a>
+                    <a href="{{url_for('audiopdf')}}">🎧 PDF vers Audio</a>
+                    <a href="{{url_for('pptx')}}">📊 PPTX vers PDF</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="modern-footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="logo-icon">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                                <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2"/>
+                                <path d="M12 16L15 19L21 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <span class="logo-text">The<span>pdf.fun</span></span>
+                    </div>
+                    <p class="footer-description">
+                        Service de conversion PDF 100% gratuit et open source.<br>
+                        Simple, rapide, sans inscription.
+                    </p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Outils</h3>
+                    <ul>
+                        <li><a href="{{url_for('img_pdf')}}">JPG/PNG vers PDF</a></li>
+                        <li><a href="{{url_for('pdf_to_word')}}">PDF vers Word</a></li>
+                        <li><a href="{{url_for('word_topdf')}}">Word vers PDF</a></li>
+                        <li><a href="{{url_for('page_ppt')}}">PDF vers PowerPoint</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Ressources</h3>
+                    <ul>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <a href="mailto:fabiokssa46@gmail.com" class="footer-email">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                            <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="1.5"/>
+                            <path d="M22 6L12 13L2 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                        <span>fabiokssa46@gmail.com</span>
+                    </a>
+                    
+                    <div class="footer-social">
+                        <h4>Suivez-moi sur</h4>
+                        <div class="social-links">
+                            <a href="https://github.com/Fabio-be" class="social-link" aria-label="GitHub">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12C2 16.41 4.87 20.12 8.84 21.49C9.34 21.58 9.5 21.27 9.5 21C9.5 20.77 9.49 20.03 9.49 19.27C6.73 19.86 6.14 17.97 6.14 17.97C5.68 16.81 5.03 16.51 5.03 16.51C4.12 15.9 5.1 15.91 5.1 15.91C6.1 15.98 6.63 16.95 6.63 16.95C7.5 18.45 8.97 18.02 9.54 17.75C9.63 17.11 9.89 16.67 10.17 16.42C7.95 16.17 5.62 15.31 5.62 11.5C5.62 10.39 6 9.5 6.65 8.79C6.55 8.54 6.2 7.5 6.75 6.15C6.75 6.15 7.59 5.88 9.5 7.17C10.29 6.95 11.15 6.84 12 6.84C12.85 6.84 13.71 6.95 14.5 7.17C16.41 5.88 17.25 6.15 17.25 6.15C17.8 7.5 17.45 8.54 17.35 8.79C18 9.5 18.38 10.39 18.38 11.5C18.38 15.32 16.04 16.16 13.81 16.41C14.17 16.72 14.5 17.34 14.5 18.26C14.5 19.54 14.49 20.58 14.49 21C14.49 21.27 14.65 21.59 15.16 21.49C19.13 20.12 22 16.41 22 12C22 6.48 17.52 2 12 2Z"/>
+                                </svg>
+                            </a>
+                            <a href="https://www.linkedin.com/in/fabrice-gnaba-9666b7339" class="social-link" aria-label="LinkedIn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M16 8C17.5913 8 19.1174 8.63214 20.2426 9.75736C21.3679 10.8826 22 12.4087 22 14V21H18V14C18 13.4696 17.7893 12.9609 17.4142 12.5858C17.0391 12.2107 16.5304 12 16 12C15.4696 12 14.9609 12.2107 14.5858 12.5858C14.2107 12.9609 14 13.4696 14 14V21H10V14C10 12.4087 10.6321 10.8826 11.7574 9.75736C12.8826 8.63214 14.4087 8 16 8Z"/>
+                                    <path d="M6 9H2V21H6V9Z"/>
+                                    <path d="M4 6C5.10457 6 6 5.10457 6 4C6 2.89543 5.10457 2 4 2C2.89543 2 2 2.89543 2 4C2 5.10457 2.89543 6 4 6Z"/>
+                                </svg>
+                            </a>
+                            <a href="https://x.com/FGnaba71536" class="social-link" aria-label="X">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M17 2H20L13.5 9.5L21 22H15L10 15.5L4.5 22H1L8 13.5L1 2H7L11.5 8L17 2Z"/>
+                                </svg>
+                            </a>
+                            <a href="https://web.facebook.com/profile.php?id=61586110673870" class="social-link" aria-label="Facebook">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M18 2H15C13.6739 2 12.4021 2.52678 11.4645 3.46447C10.5268 4.40215 10 5.67392 10 7V10H7V14H10V22H14V14H17L18 10H14V7C14 6.73478 14.1054 6.48043 14.2929 6.29289C14.4804 6.10536 14.7348 6 15 6H18V2Z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-github">
+                <a href="https://github.com/Fabio-be/" class="github-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12C2 16.41 4.87 20.12 8.84 21.49C9.34 21.58 9.5 21.27 9.5 21C9.5 20.77 9.49 20.03 9.49 19.27C6.73 19.86 6.14 17.97 6.14 17.97C5.68 16.81 5.03 16.51 5.03 16.51C4.12 15.9 5.1 15.91 5.1 15.91C6.1 15.98 6.63 16.95 6.63 16.95C7.5 18.45 8.97 18.02 9.54 17.75C9.63 17.11 9.89 16.67 10.17 16.42C7.95 16.17 5.62 15.31 5.62 11.5C5.62 10.39 6 9.5 6.65 8.79C6.55 8.54 6.2 7.5 6.75 6.15C6.75 6.15 7.59 5.88 9.5 7.17C10.29 6.95 11.15 6.84 12 6.84C12.85 6.84 13.71 6.95 14.5 7.17C16.41 5.88 17.25 6.15 17.25 6.15C17.8 7.5 17.45 8.54 17.35 8.79C18 9.5 18.38 10.39 18.38 11.5C18.38 15.32 16.04 16.16 13.81 16.41C14.17 16.72 14.5 17.34 14.5 18.26C14.5 19.54 14.49 20.58 14.49 21C14.49 21.27 14.65 21.59 15.16 21.49C19.13 20.12 22 16.41 22 12C22 6.48 17.52 2 12 2Z"/>
+                    </svg>
+                    <span>Code source</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Thepdf.fun - Tous droits réservés - Created By GNABA</p>
+                <div class="footer-legal">
+                    <a href="#">Mentions légales</a>
+                    <a href="#">Politique de confidentialité</a>
+                    <a href="#">CGU</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu mobile
+        const mobileBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (mobileBtn) {
+            mobileBtn.addEventListener('click', () => {
+                mobileBtn.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+LICENCE COMMUNAUTAIRE THEPDF.FUN (Open Knowledge License)
+
+Version 1.0 - 2026
+
+Copyright (c) 2026 thepdf.fun
+
+1. PHILOSOPHIE DU PROJET
+
+thepdf.fun est un projet open source, gratuit et sans inscription.
+Il est fondé sur les principes suivants :
+- Liberté d’accès à la technologie
+- Partage du savoir sans restriction
+- Amélioration continue par la communauté
+- Transparence et simplicité d’utilisation
+
+2. AUTORISATIONS
+
+Toute personne obtenant une copie du logiciel thepdf.fun est libre de :
+
+- Utiliser le logiciel pour un usage personnel ou professionnel
+- Copier et redistribuer le code source
+- Modifier et adapter le logiciel selon ses besoins
+- Créer des projets dérivés (forks)
+- Héberger et déployer le service librement
+- Contribuer au projet via améliorations ou corrections
+
+3. CONTRIBUTION COMMUNAUTAIRE
+
+Toute contribution au projet (code, documentation, idées, corrections) est encouragée.
+
+En contribuant à thepdf.fun, vous acceptez que :
+- Vos contributions soient intégrées dans le projet principal ou ses dérivés
+- Elles restent compatibles avec la philosophie open source du projet
+- Elles puissent être redistribuées librement dans le cadre de cette licence
+
+4. OBLIGATIONS
+
+Toute copie ou redistribution du projet doit :
+- Mentionner clairement thepdf.fun comme projet original
+- Conserver cette licence dans son intégralité
+- Respecter les principes de liberté et d’ouverture du projet
+
+5. RESTRICTIONS
+
+Il est interdit de :
+- Revendre le projet en tant que produit fermé ou propriétaire
+- Supprimer les mentions de thepdf.fun ou ses crédits
+- Restreindre l’accès au code source dérivé
+
+6. ABSENCE DE GARANTIE
+
+Le logiciel est fourni "tel quel", sans aucune garantie.
+Les auteurs ne sont pas responsables des dommages directs ou indirects
+liés à son utilisation.
+
+7. VISION DU PROJET
+
+thepdf.fun n’est pas seulement un outil.
+C’est une initiative communautaire visant à démocratiser l’accès aux outils numériques,
+en particulier dans le domaine de la manipulation et conversion de documents PDF.
+
+Nous croyons que la technologie doit rester libre, accessible et améliorable par tous.
+
+---
+
+Fin de la licence.
