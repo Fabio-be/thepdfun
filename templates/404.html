@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{url_for('static',filename='thepdffun.ico')}}" type="image/x-icon">
-    <title>Erreur 404 - Page introuvable | thepdf.fun</title>
+    <title>Error 404 - Page Not Found | thepdf.fun</title>
     <style>
         * {
             margin: 0;
@@ -592,8 +592,8 @@
             <ul class="nav-links">
                 <li><a href="#" class="nav-link">Docs</a></li>
                 <li><a href="#" class="nav-link">Blog</a></li>
-                <li><a href="#Features" class="nav-link">Convertir</a></li>
-                <li><a href="{{url_for('page_don')}}" class="nav-link">Soutenir</a></li>
+                <li><a href="#Features" class="nav-link">Convert</a></li>
+                <li><a href="{{url_for('page_don')}}" class="nav-link">Support</a></li>
             </ul>
             
             <button class="mobile-menu-btn" aria-label="Menu">
@@ -614,39 +614,38 @@
                 </svg>
             </div>
             <div class="error-code">404</div>
-            <h1 class="error-title">Erreur 404 - Page introuvable</h1>
+            <h1 class="error-title">Error 404 - Page Not Found</h1>
             <p class="error-message">
-                La page que vous recherchez n'existe pas ou a été déplacée.
-                Vérifiez l'URL ou retournez à l'accueil.
+                The page you are looking for does not exist or has been moved.
+                Check the URL or return to the home page.
             </p>
             <div class="fun-tip">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M12 2L15 8.5L22 9.5L17 14L18.5 21L12 17.5L5.5 21L7 14L2 9.5L9 8.5L12 2Z"/>
                 </svg>
-                <span>Astuce : Vérifiez l'orthographe du lien ou utilisez notre menu</span>
+                <span>Tip: Check the spelling of the link or use our menu</span>
             </div>
             <div class="error-actions">
                 <a href="/" class="btn-primary">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M3 9.5L12 3L21 9.5V20H3V9.5Z"/>
                     </svg>
-                    Retour à l'accueil
+                    Go Home
                 </a>
                 <a href="#Features" class="btn-secondary">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M4 4H20V20H4V4Z"/>
                     </svg>
-                    Nos outils PDF
+                    Our Tools
                 </a>
             </div>
             <div class="suggestions">
-                <p>Vous cherchiez peut-être :</p>
+                <p>You May be search :</p>
                 <div class="suggestions-links">
-                    <a href="{{url_for('img_pdf')}}">📷 JPG/PNG vers PDF</a>
-                    <a href="{{url_for('pdf_to_word')}}">📄 PDF vers Word</a>
-                    <a href="{{url_for('word_topdf')}}">📝 Word vers PDF</a>
-                    <a href="{{url_for('audiopdf')}}">🎧 PDF vers Audio</a>
-                    <a href="{{url_for('pptx')}}">📊 PPTX vers PDF</a>
+                    <a href="{{url_for('img_pdf')}}">📷 JPG/PNG to PDF</a>
+                    <a href="{{url_for('pdf_to_word')}}">📄 PDF to Word</a>
+                    <a href="{{url_for('word_topdf')}}">📝 Word to PDF</a>
+                    <a href="{{url_for('pptx')}}">📊 PPTX to PDF</a>
                 </div>
             </div>
         </div>
@@ -666,18 +665,18 @@
                         <span class="logo-text">The<span>pdf.fun</span></span>
                     </div>
                     <p class="footer-description">
-                        Service de conversion PDF 100% gratuit et open source.<br>
-                        Simple, rapide, sans inscription.
+                       100% free and open-source PDF conversion service.<br>
+                        Simple, fast, no registration required.
                     </p>
                 </div>
 
                 <div class="footer-section">
                     <h3>Outils</h3>
                     <ul>
-                        <li><a href="{{url_for('img_pdf')}}">JPG/PNG vers PDF</a></li>
-                        <li><a href="{{url_for('pdf_to_word')}}">PDF vers Word</a></li>
-                        <li><a href="{{url_for('word_topdf')}}">Word vers PDF</a></li>
-                        <li><a href="{{url_for('page_ppt')}}">PDF vers PowerPoint</a></li>
+                        <li><a href="{{url_for('img_pdf')}}">JPG/PNG to PDF</a></li>
+                        <li><a href="{{url_for('pdf_to_word')}}">PDF to Word</a></li>
+                        <li><a href="{{url_for('word_topdf')}}">Word to PDF</a></li>
+                        <li><a href="{{url_for('page_ppt')}}">PDF to PowerPoint</a></li>
                     </ul>
                 </div>
 
@@ -700,7 +699,7 @@
                     </a>
                     
                     <div class="footer-social">
-                        <h4>Suivez-moi sur</h4>
+                        <h4>Follow me on</h4>
                         <div class="social-links">
                             <a href="https://github.com/Fabio-be" class="social-link" aria-label="GitHub">
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
