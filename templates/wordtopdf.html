@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static',filename='mvp.css')}}">
     <link rel="shortcut icon" href="{{url_for('static',filename='thepdffun.ico')}}" type="image/x-icon">
-    <title>Thepdf.fun - Word vers PDF</title>
+    <title>Thepdf.fun - Word to PDF</title>
     <style>
         * {
             margin: 0;
@@ -434,8 +434,8 @@
                 <span class="logo-text">The<span>pdf.fun</span></span>
             </a>
             <ul class="nav-links">
-                <li><a href="{{url_for('home')}}" class="nav-link">Acceuil</a></li>
-                <li><a href="{{url_for('home')}}" class="nav-link">À propos</a></li>
+                <li><a href="{{url_for('home')}}" class="nav-link">Home</a></li>
+                <li><a href="{{url_for('home')}}" class="nav-link">About</a></li>
                 <li><a href="{{url_for('page_don')}}" class="nav-link">Support</a></li>
             </ul>
         </div>
@@ -454,8 +454,8 @@
                         </svg>
                     </div>
                     <h1 class="converter-title">Word <span>vers PDF</span></h1>
-                    <p class="converter-subtitle">Convertissez vos documents Word DOCX en PDF</p>
-                    <div class="converter-subtitle">le fichier PDF sera téléchargé automatiquement</div>
+                    <p class="converter-subtitle">Convert your Word to PDF</p>
+                    <div class="converter-subtitle">The PDF file will be downloaded automatically.</div>
                     <div class="formats">
                         <span class="format-badge">DOCX</span>
                         <span class="format-badge">DOC</span>
@@ -471,7 +471,7 @@
                                 <path d="M4 16V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V16" stroke="currentColor" stroke-width="1.5"/>
                             </svg>
                         </div>
-                        <p class="file-text">Cliquez ou déposez votre document Word ici</p>
+                        <p class="file-text">Click or drop your Word document here</p>
                         <p class="file-hint">DOCX, DOC - Max 10 Mo</p>
                         <input type="file" name="file" id="fileInput" class="file-input" accept=".docx,.doc" required>
                     </div>
