@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static',filename='mvp.css')}}">
     <link rel="shortcut icon" href="{{url_for('static',filename='thepdffun.ico')}}" type="image/x-icon">
-    <title>Thepdf.fun - PDF vers PowerPoint</title>
+    <title>Thepdf.fun - PDF to PowerPoint</title>
     <style>
         * {
             margin: 0;
@@ -434,8 +434,8 @@
                 <span class="logo-text">The<span>pdf.fun</span></span>
             </a>
             <ul class="nav-links">
-                <li><a href="{{url_for('home')}}" class="nav-link">Acceuil</a></li>
-                <li><a href="{{url_for('home')}}" class="nav-link">À propos</a></li>
+                <li><a href="{{url_for('home')}}" class="nav-link">Home</a></li>
+                <li><a href="{{url_for('home')}}" class="nav-link">About</a></li>
                 <li><a href="{{url_for('page_don')}}" class="nav-link">Support</a></li>
             </ul>
         </div>
@@ -454,9 +454,9 @@
                             <path d="M18 8L20 10L18 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                         </svg>
                     </div>
-                    <h1 class="converter-title">PDF <span>vers PowerPoint</span></h1>
-                    <p class="converter-subtitle">Convertissez vos PDF en PowerPoint PPTX</p>
-                    <div class="converter-subtitle">le fichier PowerPoint sera téléchargé automatiquement</div>
+                    <h1 class="converter-title">PDF <span>to PowerPoint</span></h1>
+                    <p class="converter-subtitle">Convert Your PDFs to PPTX</p>
+                    <div class="converter-subtitle">The PowerPoint file will be downloaded automatically.</div>
                     <div class="formats">
                         <span class="format-badge">PDF</span>
                         <span class="format-badge">PPTX</span>
@@ -472,8 +472,8 @@
                                 <path d="M4 16V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V16" stroke="currentColor" stroke-width="1.5"/>
                             </svg>
                         </div>
-                        <p class="file-text">Cliquez ou déposez votre PDF ici</p>
-                        <p class="file-hint">PDF uniquement - Max 10 Mo</p>
+                        <p class="file-text">Click or drop your PDF here</p>
+                        <p class="file-hint">PDF Only - Max 10 Mo</p>
                         <input type="file" name="file" id="fileInput" class="file-input" accept=".pdf" required>
                     </div>
 
@@ -496,7 +496,7 @@
                             <path d="M3 12H21M21 12L17 8M21 12L17 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                             <path d="M12 4V20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                         </svg>
-                        Convertir en PowerPoint
+                        Convert to PPTX
                     </button>
 
                     <div class="progress-container" id="progressContainer">
