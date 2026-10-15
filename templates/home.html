@@ -35,6 +35,9 @@
         </button>
     </div>
 </nav>
+
+<!-- Overlay (couche de superposition) -->
+<div class="menu-overlay"></div>
    
  <section class="intro-section">
     <div class="intro-container">
@@ -49,44 +52,40 @@
         
         <div class="intro-description">
             <p class="intro-text">
-                Thepdf.fun est un projet de service de conversion PDF gratuit et open source qui ne nécessite 
-                aucune inscription, utilisation gratuite sans abonnement. 
-                <span class="highlight-text">Thepdf.fun est le seul service de conversion PDF totalement gratuit 
-                et open source et centré sur la communauté.</span>
+                Thepdf.fun is a free, open-source PDF conversion service that requires no registration and is free to use, with no subscription needed.
+                <span class="highlight-text">Thepdf.fun is the only completely free, open-source, and community-focused PDF conversion service.</span>
             </p>
         </div>
         
         <div class="intro-stats">
             <div class="stat-item">
                 <div class="stat-number">100%</div>
-                <div class="stat-label">Gratuit</div>
+                <div class="stat-label">Free</div>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
                 <div class="stat-number">0</div>
-                <div class="stat-label">Inscription</div>
+                <div class="stat-label">SignIn</div>
             </div>
             <div class="stat-divider"></div>
             <div class="stat-item">
                 <div class="stat-number">∞</div>
-                <div class="stat-label">Illimité</div>
+                <div class="stat-label">Unlimited</div>
             </div>
         </div>
         
         <div class="intro-actions">
-            <button class="btn-primary">
-                <span>Commencer maintenant</span>
-                <a href="#Features">
+            <a href="#Features" class="btn-primary">
+                <span>Start Now</span>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                     <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 </svg>
-                </a>
-            </button>
+            </a>
             <button class="btn-secondary">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                     <path d="M12 6V12L15 15M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 </svg>
-                <span>En savoir plus</span>
+                <span>Learn More About</span>
             </button>
         </div>
     </div>
@@ -94,7 +93,7 @@
     
 <section class="features-section" id="Features">
     <div class="features-container">
-        <h2 class="features-title">Nos outils de conversion</h2>
+        <h2 class="features-title">Our Conversions Tools</h2>
         
         <div class="features-list">
             <a href="{{url_for('img_pdf')}}" class="feature-link">
@@ -105,7 +104,7 @@
                         <path d="M21 15L16 10L5 21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                     </svg>
                 </span>
-                <span class="feature-name">JPG/PNG vers PDF</span>
+                <span class="feature-name">JPG/PNG to PDF</span>
                 <span class="feature-arrow">→</span>
             </a>
             
@@ -118,7 +117,7 @@
                         <path d="M8 17H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                     </svg>
                 </span>
-                <span class="feature-name">PDF vers Word</span>
+                <span class="feature-name">PDF to Word</span>
                 <span class="feature-arrow">→</span>
             </a>
             
@@ -130,7 +129,7 @@
                         <path d="M8 12H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                     </svg>
                 </span>
-                <span class="feature-name">Word vers PDF</span>
+                <span class="feature-name">Word to PDF</span>
                 <span class="feature-arrow">→</span>
             </a>
             
@@ -143,7 +142,7 @@
                         <path d="M8 12H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                     </svg>
                 </span>
-                <span class="feature-name">PPTX vers PDF</span>
+                <span class="feature-name">PPTX to PDF</span>
                 <span class="feature-arrow">→</span>
             </a>
             
@@ -156,7 +155,7 @@
                         <path d="M12 17H16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                     </svg>
                 </span>
-                <span class="feature-name">PDF vers PPTX</span>
+                <span class="feature-name">PDF to PPTX</span>
                 <span class="feature-arrow">→</span>
             </a>
         </div>
@@ -172,12 +171,12 @@
                 </svg>
             </div>
             <div class="donation-text">
-                <h3>Soutenez le projet ❤️</h3>
-                <p>Votre don nous aide à maintenir Thepdf.fun gratuit et open source</p>
+                <h3>Support the project ❤️</h3>
+                <p>Your donation helps us keep Thepdf.fun free and open source</p>
             </div>
             <div class="donation-buttons">
                 <a href="{{url_for('page_don')}}" class="donate-btn">
-                    <span>Faire un don</span>
+                    <span>Make a don</span>
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
                         <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                     </svg>
@@ -189,9 +188,7 @@
 
 <footer class="modern-footer">
     <div class="footer-container">
-        <!-- Section principale -->
         <div class="footer-main">
-            <!-- Brand -->
             <div class="footer-brand">
                 <div class="footer-logo">
                     <div class="logo-icon">
@@ -203,33 +200,29 @@
                     <span class="logo-text">The<span>pdf.fun</span></span>
                 </div>
                 <p class="footer-description">
-                    Service de conversion PDF 100% gratuit et open source.<br>
-                    Simple, rapide, sans inscription.
+                    100% free and open-source PDF conversion service.<br>
+Simple, fast, no registration required.
                 </p>
             </div>
 
-            <!-- Liens rapides -->
             <div class="footer-section">
                 <h3>Outils</h3>
                 <ul>
-                    <li><a href="{{url_for('img_pdf')}}">JPG/PNG vers PDF</a></li>
-                    <li><a href="{{url_for('pdf_to_word')}}">PDF vers Word</a></li>
-                    <li><a href="{{url_for('word_topdf')}}">Word vers PDF</a></li>
-                     <li><a href="{{url_for('page_ppt')}}">PDF vers PowerPoint</a></li>
+                    <li><a href="{{url_for('img_pdf')}}">JPG/PNG to PDF</a></li>
+                    <li><a href="{{url_for('pdf_to_word')}}">PDF to Word</a></li>
+                    <li><a href="{{url_for('word_topdf')}}">Word to PDF</a></li>
+                     <li><a href="{{url_for('page_ppt')}}">PDF to PowerPoint</a></li>
                 </ul>
             </div>
 
-            <!-- Ressources -->
             <div class="footer-section">
                 <h3>Ressources</h3>
                 <ul>
                     <li><a href="#">Support</a></li>
                     <li><a href="#">Blog</a></li>
-                   
                 </ul>
             </div>
 
-            <!-- Contact & Réseaux sociaux -->
             <div class="footer-section">
                 <h3>Contact</h3>
                 <a href="mailto:fabiokssa46@gmail.com" class="footer-email">
@@ -241,7 +234,8 @@
                 </a>
                 
                 <div class="footer-social">
-                    <h4>Suivez-moi sur</h4>
+                    <h4>Follow me on
+                    </h4>
                     <div class="social-links">
                         <a href="https://github.com/Fabio-be" class="social-link" aria-label="GitHub">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -270,7 +264,6 @@
             </div>
         </div>
 
-        <!-- Code source GitHub -->
         <div class="footer-github">
             <a href="https://github.com/Fabio-be/thepdfun" class="github-link">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -283,7 +276,6 @@
             </a>
         </div>
 
-        <!-- Copyright -->
         <div class="footer-bottom">
             <p>&copy; 2026 Thepdf.fun - Tous droits réservés - Created By GNABA FABIO</p>
             <div class="footer-legal">
@@ -294,6 +286,38 @@
         </div>
     </div>
 </footer>
+
+<!-- ============ SCRIPT MENU MOBILE ============ -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        const overlay = document.querySelector('.menu-overlay');
+
+        if (mobileMenuBtn && navLinks && overlay) {
+            // Ouvre / ferme le menu UNIQUEMENT via le bouton hamburger
+            mobileMenuBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                overlay.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
+
+            // Ferme le menu quand on clique sur un lien (optionnel)
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenuBtn.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                });
+            });
+
+            // PAS de fermeture au clic extérieur — seul le bouton contrôle le menu
+        }
+    });
+</script>
 
 </body>
 
@@ -308,15 +332,36 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* Navigation principale */
+/* Bloque le défilement quand le menu est ouvert */
+body.menu-open {
+    overflow: hidden;
+}
+
+/* =====================================================
+   NAVIGATION - EMPILEMENT DES COUCHES (z-index)
+   navbar (1001) > bouton (1002) > overlay (1000) > menu (999)
+   ===================================================== */
 .modern-nav {
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(34, 197, 94, 0.1);
-    position: sticky;
+    position: fixed;      /* FIXE sur tous les écrans */
     top: 0;
-    z-index: 1000;
+    left: 0;
+    right: 0;
+    z-index: 1001;        /* Couche supérieure à l'overlay et au menu */
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Compense la navbar fixe */
+body {
+    padding-top: 73px;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 65px;
+    }
 }
 
 .nav-container {
@@ -416,7 +461,8 @@ body {
     border: none;
     cursor: pointer;
     padding: 0;
-    z-index: 10;
+    z-index: 1002;        /* Au-dessus de tout pour rester cliquable */
+    position: relative;
 }
 
 .mobile-menu-btn span {
@@ -427,7 +473,7 @@ body {
     border-radius: 2px;
 }
 
-/* Animation du bouton mobile */
+/* Animation du bouton mobile (croix) */
 .mobile-menu-btn.active span:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
@@ -440,7 +486,27 @@ body {
     transform: rotate(-45deg) translate(7px, -7px);
 }
 
-/* Responsive Design */
+/* Overlay (couche de superposition) */
+.menu-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 1000;         /* Juste sous la navbar, au-dessus du menu */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* =====================================================
+   RESPONSIVE MOBILE
+   ===================================================== */
 @media (max-width: 768px) {
     .nav-container {
         padding: 1rem;
@@ -450,20 +516,26 @@ body {
         display: flex;
     }
     
+    .menu-overlay {
+        display: block;
+    }
+    
     .nav-links {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 70%;
+        width: 75%;
+        max-width: 320px;
         height: 100vh;
-        background: rgba(255, 255, 255, 0.98);
-        backdrop-filter: blur(10px);
+        background: rgba(255, 255, 255, 0.99);
+        backdrop-filter: blur(20px);
         flex-direction: column;
         justify-content: center;
         gap: 2rem;
-        transition: right 0.3s ease;
-        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
-        z-index: 9;
+        transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.15);
+        z-index: 999;      /* Sous l'overlay (1000) et la navbar (1001) */
+        padding: 2rem;
     }
     
     .nav-links.active {
@@ -496,19 +568,16 @@ body {
     animation: slideDown 0.5s ease;
 }
 
-/* Effet de survol pour les éléments de liste */
 .nav-links li {
     position: relative;
 }
 
-/* Scroll personnalisé pour la version mobile */
 @media (max-width: 768px) {
     .nav-links {
         overflow-y: auto;
     }
 }
 
-/* Version desktop avec effet glassmorphism amélioré */
 @media (min-width: 769px) {
     .modern-nav {
         background: rgba(255, 255, 255, 0.95);
@@ -531,7 +600,6 @@ body {
     align-items: center;
 }
 
-/* Effet de fond décoratif */
 .intro-section::before {
     content: '';
     position: absolute;
@@ -562,7 +630,6 @@ body {
     text-align: center;
 }
 
-/* Badge */
 .intro-badge {
     display: inline-flex;
     align-items: center;
@@ -588,7 +655,6 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* Titre */
 .intro-title {
     font-size: 3.5rem;
     font-weight: 800;
@@ -623,7 +689,6 @@ body {
     animation: expandWidth 0.8s ease 0.5s forwards;
 }
 
-/* Description */
 .intro-description {
     margin-bottom: 2.5rem;
     animation: fadeInUp 0.6s ease 0.2s both;
@@ -645,7 +710,6 @@ body {
     border-radius: 4px;
 }
 
-/* Statistiques */
 .intro-stats {
     display: flex;
     justify-content: center;
@@ -686,7 +750,6 @@ body {
     background: linear-gradient(180deg, transparent, #22c55e, transparent);
 }
 
-/* Boutons d'action */
 .intro-actions {
     display: flex;
     gap: 1rem;
@@ -707,6 +770,7 @@ body {
     border: none;
     position: relative;
     overflow: hidden;
+    text-decoration: none;
 }
 
 .btn-primary {
@@ -751,7 +815,6 @@ body {
     transform: translateY(0);
 }
 
-/* Animations */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -781,7 +844,6 @@ body {
     }
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .intro-section {
         padding: 3rem 1.5rem;
@@ -904,7 +966,6 @@ body {
     transform: translateX(3px);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .features-section {
         padding: 2rem 1rem;
@@ -1003,7 +1064,6 @@ body {
     box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
 }
 
-/* Version compacte pour mobile */
 @media (max-width: 640px) {
     .donation-section {
         padding: 1.5rem;
@@ -1028,6 +1088,7 @@ body {
         justify-content: center;
     }
 } 
+
 /* Footer principal */
 .modern-footer {
     background: #1a1a1a;
@@ -1041,7 +1102,6 @@ body {
     margin: 0 auto;
 }
 
-/* Section principale */
 .footer-main {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1.5fr;
@@ -1049,7 +1109,6 @@ body {
     margin-bottom: 2rem;
 }
 
-/* Brand */
 .footer-brand {
     padding-right: 1rem;
 }
@@ -1081,7 +1140,6 @@ body {
     color: #9ca3af;
 }
 
-/* Sections */
 .footer-section h3 {
     color: white;
     font-size: 1rem;
@@ -1109,7 +1167,6 @@ body {
     color: #22c55e;
 }
 
-/* Email */
 .footer-email {
     display: inline-flex;
     align-items: center;
@@ -1125,7 +1182,6 @@ body {
     color: #22c55e;
 }
 
-/* Réseaux sociaux */
 .footer-social h4 {
     color: white;
     font-size: 0.9rem;
@@ -1156,7 +1212,6 @@ body {
     transform: translateY(-3px);
 }
 
-/* Section GitHub */
 .footer-github {
     text-align: center;
     padding: 1.5rem 0;
@@ -1192,7 +1247,6 @@ body {
     color: white;
 }
 
-/* Footer bottom */
 .footer-bottom {
     display: flex;
     justify-content: space-between;
@@ -1217,7 +1271,6 @@ body {
     color: #22c55e;
 }
 
-/* Responsive */
 @media (max-width: 968px) {
     .footer-main {
         grid-template-columns: repeat(2, 1fr);
@@ -1261,7 +1314,6 @@ body {
         justify-content: center;
     }
 }
-
 
 </style>
 </html>
